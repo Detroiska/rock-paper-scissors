@@ -9,21 +9,54 @@
 			let randomNumber = Math.floor(Math.random() * 100) % 3;
 			return CHOICES[randomNumber];
 		}
-		
+	
 		function playRound(playerSelection, computerSelection) {
 			let playerSelectionFormatted = capitalize(playerSelection);
 			let computerSelectionFormatted = capitalize(computerSelection);
 			
-			if (playerSelectionFormatted === computerSelectionFormatted) {
+			if (beats(playerSelectionFormatted, computerSelectionFormatted)) {
+				return "You win! " + playerSelectionFormatted + " beats " + computerSelectionFormatted;
+				}
+			else if (beats(computerSelectionFormatted, playerSelectionFormatted)) {
+				return "You lose! " + computerSelectionFormatted + " beats " + playerSelectionFormatted;
+				}
+			else {
 				return "It's a tie! Both threw " + playerSelectionFormatted;
 				}
-			else if ((CHOICES.indexOf(playerSelectionFormatted) + 2) % 3 == CHOICES.indexOf(computerSelectionFormatted)) {
-					return "You win! " + playerSelectionFormatted + " beats " + computerSelectionFormatted;
-					}
-			else {
-					return "You lose! " + computerSelectionFormatted + " beats " + playerSelectionFormatted;
-				}
 			}
+			
+		function game() {
+			let playerScore = 0;
+			let computerScore = 0;
+			let playerSelection;
+			let computerSelection;
+			
+			for (i = 0; i < 5; i++) {
+				playerSelection = capitalize(prompt("Enter your choice"));
+				computerSelection = getComputerChoice();
+				
+				if (beats(playerSelection, computerSelection)) {
+					playerScore++;
+					}
+				else if (beats(computerSelection, playerSelection)) {
+					computerScore++;
+					}
+				console.log(playRound(playerSelection, computerSelection));
+				}
+			if (playerScore > computerScore) {
+				return "You win!";
+				}
+			else if (computerScore > playerScore) {
+				return "You lose!";
+				}
+			else {
+				return "It's a tie!";
+			}
+	}
+		
+		function beats(choiceA, choiceB) {
+			return (CHOICES.indexOf(choiceA) + 2) % 3 == CHOICES.indexOf(choiceB);
+		}
 		
 		function capitalize(str) {
 			return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
