@@ -1,0 +1,19 @@
+<html>
+	<script>
+		const ROCK = "Rock";
+		const PAPER = "Paper";
+		const SCISSORS = "Scissors";
+		
+		function getComputerChoice() {
+			randomNumber = Math.floor(Math.random() * 100) % 3;
+			if (randomNumber == 0) {
+				return ROCK;
+			} else if (randomNumber == 1) {
+				return PAPER;
+			} else {
+				return SCISSORS;
+			}
+		}
+				
+	</script>
+</html>
